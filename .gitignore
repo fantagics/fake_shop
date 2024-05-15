@@ -74,8 +74,6 @@ pubspec.lock
 # If you don't generate documentation locally you can remove this line.
 doc/api/
 
-# dotenv environment variables file
-.env*
 
 # Avoid committing generated Javascript files:
 *.dart.js
@@ -338,3 +336,7 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,dart,macos,xcode,android,androidstudio
+
+#API KEYS
+.env*
+Config.xcconfig

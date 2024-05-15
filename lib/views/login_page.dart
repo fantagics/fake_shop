@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../service/common_service.dart';
+import '../service/auth_service.dart';
 import './sub/login_field.dart';
 import './sub/circle_progress_indicator_widget.dart';
 
@@ -18,7 +18,7 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CommonService>(
+    return Consumer<AuthService>(
       builder: (context, value, child) {
         return Scaffold(
           resizeToAvoidBottomInset: true,

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-import '../../service/common_service.dart';
+// import 'package:provider/provider.dart';
+// import '../../service/common_service.dart';
+
+// import 'package:flutter/services.dart';
+// import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+
 import '../../color_asset/colors.dart';
 import './login_field_subview.dart';
-import '../../network/network_manager.dart';
-import './app_dialoges.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -19,10 +21,10 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController idTextFieldControl = TextEditingController();
   TextEditingController pwTextFieldControl = TextEditingController();
   bool isChecked = false;
-  // final nm = NetworkManager();
 
   @override
   Widget build(BuildContext context) {
+    // CommonService service = context.read<CommonService>();
     return Column(
       children: [
         Form(
@@ -114,90 +116,14 @@ class _LoginFormState extends State<LoginForm> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            circleShadow(
-              child: GestureDetector(
-                onTap: (){
-                  print("K");
-                }, 
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
-                  child: Image.asset('assets/Kakao_logo.png',
-                    width: 36, height: 36,
-                    fit: BoxFit.cover,
-                  ),
-                )
-              )
-            ),
+            kakaoLoginButton(context: context, isChecked: isChecked),
             SizedBox(width: 10),
-            circleShadow(
-              child: GestureDetector(
-                onTap: (){
-                  print("G");
-                }, 
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
-                  child: Image.asset('assets/google_logo.png',
-                    width: 36, height: 36,
-                    fit: BoxFit.cover,
-                  ),
-                )
-              )
-            ),
+            googleLoginButton(context: context, isChecked: isChecked),
             SizedBox(width: 10),
-            circleShadow(
-              child: GestureDetector(
-                onTap: (){
-                  print("A");
-                }, 
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
-                  child: Image.asset('assets/apple_logo.png',
-                    width: 36, height: 36,
-                    fit: BoxFit.cover,
-                  ),
-                )
-              )
-            ),
+            appleLoginButton(context: context, isChecked: isChecked),
           ],
         ),
       ],
-    );
-  }
-}
-
-void loginProcess({
-  required BuildContext context,
-  required bool isChecked,
-  required TextEditingController idControl,
-  required TextEditingController pwControl,
-}) async{
-  final nm = NetworkManager();
-  if(idControl.text.isEmpty || pwControl.text.isEmpty){
-    justConfirmDialog(context: context,
-      description: "user name 및 password를 입력해주세요.",
-    );
-    return;
-  }
-  if(!isChecked){
-    justConfirmDialog(context: context,
-      description: "이용약관 및 개인정보약관 동의에 체크해주세요.",
-    );
-    return;
-  }
-  CommonService service = context.read<CommonService>();
-  service.changeLoadState(true);
-  final res = await nm.getUserToken(userName: 'mor_2314', password: '83r5^_');
-  // final res = await nm.getUserToken(
-  //   userName: idControl.text, 
-  //   password: pwControl.text
-  // );
-  print(res);
-  service.changeLoadState(false);
-  if(res[0] == "1"){
-    service.changeUserToken(res[1]);
-  } else {
-    justConfirmDialog(context: context,
-      description: res[1]
     );
   }
 }

@@ -1,6 +1,7 @@
-import 'package:fake_shop_app/color_asset/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../color_asset/colors.dart';
 
 void justConfirmDialog({
   required BuildContext context,

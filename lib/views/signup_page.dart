@@ -32,9 +32,11 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text("회원가입",
           style: GoogleFonts.notoSans(
-            fontWeight: FontWeight.bold
+            fontWeight: FontWeight.bold,
+            color: Colors.white
           ),
         ),
         backgroundColor: CsColors.cs.accentColor,
