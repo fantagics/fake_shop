@@ -19,7 +19,7 @@ class _CircleProgerssIndicatorState extends State<CircleProgerssIndicator> {
         child: Container(
           width: 110, height: 110,
           decoration: BoxDecoration(
-            color: CsColors.cs.maskColor,
+            color: CsColors.cs.accentColor.withOpacity(0.8),
             borderRadius: BorderRadius.all(Radius.circular(20))
           ),
           child: Center(

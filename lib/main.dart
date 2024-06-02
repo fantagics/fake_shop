@@ -11,6 +11,8 @@ import './service/products_service.dart';
 import './views/login_page.dart';
 import './views/signup_page.dart';
 import './views/home_page.dart';
+import './views/product_info_page.dart';
+import './views/products_list_page.dart';
 
 void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +25,7 @@ void main() async {
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(create: (context) => AuthService(prefs)),
-      ChangeNotifierProvider(create: (context) => ProductsService(prefs)),
+      ChangeNotifierProvider(create: (context) => ProductsService()),
     ],
     child: const MyApp(),
     )
@@ -49,6 +51,8 @@ class _MyAppState extends State<MyApp> {
           '/login': (context) => const LogInPage(),
           '/signup': (context) => const SignUpPage(),
           '/home': (context) => const HomePage(),
+          '/product': (context) => const ProductInfoPage(),
+          '/productsList' : (context) => const ProductsListPage(),
         },
     );
   }

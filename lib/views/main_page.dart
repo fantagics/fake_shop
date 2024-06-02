@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -12,6 +11,7 @@ import './sub/circle_progress_indicator_widget.dart';
 import '../network/network_manager.dart';
 import '../model/translation_ko.dart';
 import '../model/products.dart';
+import '../model/arguments/product_info_arguments.dart';
 
 class HomeMainPage extends StatefulWidget {
   const HomeMainPage({super.key});
@@ -83,7 +83,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
                       ],
                     ),
                     SizedBox(height: 10,),
-                    Container(
+                    SizedBox(
                       height: ((imgLength + 101) * 4) + 60,
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -108,7 +108,10 @@ class _HomeMainPageState extends State<HomeMainPage> {
                                 previewMiniProduct(context: context, imgLength: imgLength, product: products[2]),
                                 Expanded(child: Container(),),
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){
+                                    value.selectedCategory = category;
+                                    Navigator.pushNamed(context, '/productsList');
+                                  },
                                   child: Column(
                                     children: [
                                       Padding(
@@ -157,7 +160,11 @@ previewMiniProduct({
   return Container(
     width: imgLength,
     child: GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Navigator.pushNamed(context, '/product',
+        arguments: ProductInfoArguments(product)
+        );
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

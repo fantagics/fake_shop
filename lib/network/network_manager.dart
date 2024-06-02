@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:dio/dio.dart';
@@ -44,9 +45,7 @@ class NetworkManager{
       Response resCate = await Dio().get(reqUrl("products/categories"));
       service.categories = List<String>.from(resCate.data);
     } on DioException catch (e){
-      var connectivityResult = await (Connectivity().checkConnectivity());
-      String msg = NetworkErrors.getByCode(e.response?.statusCode, connectivityResult).description;
-      print(msg);//context.dialog(networkError)
+        errorHandler(e);
     }
     try{
       for(String c in service.categories){
@@ -55,11 +54,35 @@ class NetworkManager{
         service.recommend[c] = cateItem;
       }
     } on DioException catch (e){
-      var connectivityResult = await (Connectivity().checkConnectivity());
-      String msg = NetworkErrors.getByCode(e.response?.statusCode, connectivityResult).description;
-      print(msg);//context.dialog(networkError)
+        errorHandler(e);
     }
     service.changeLoadState(false);
   }
 
+
+  Future<List<Product>> getAllProducts()async{
+    try{
+      Response res = await Dio().get(reqUrl('products?sort=desc'));
+      return List<Product>.from(res.data.map((p){return Product.fromJson(p);}).toList() ?? []);
+    } on DioException catch (e){
+      errorHandler(e);
+      return [];
+    }
+  }
+  Future<List<Product>> getProductsOf({required String category})async{
+     try{
+      Response res = await Dio().get(reqUrl('products/category/$category?sort=desc'));
+      return List<Product>.from(res.data.map((p){return Product.fromJson(p);}).toList() ?? []);
+    } on DioException catch (e){
+      errorHandler(e);
+      return [];
+    }
+  }
+
+///ERROR
+  void errorHandler(DioException e) async{
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    String msg = NetworkErrors.getByCode(e.response?.statusCode, connectivityResult).description;
+    print(msg);//context.dialog(networkError)
+  }
 }

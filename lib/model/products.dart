@@ -1,6 +1,7 @@
 class Product{
   int id;
   String title;
+  String description;
   double price;
   String category;
   String image;
@@ -9,6 +10,7 @@ class Product{
   Product({
     required this.id,
     required this.title,
+    required this.description,
     required this.price,
     required this.category,
     required this.image,
@@ -19,6 +21,7 @@ class Product{
     return Product(
       id: json['id'], 
       title: json['title'], 
+      description: json['description'],
       price: json['price'].toDouble(), 
       category: json['category'], 
       image: json['image'], 
