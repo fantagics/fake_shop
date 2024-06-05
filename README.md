@@ -1,2 +1,2 @@
 # fake_shop
-flutter project
+flutter project - fakeShop
