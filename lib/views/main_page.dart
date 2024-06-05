@@ -109,7 +109,8 @@ class _HomeMainPageState extends State<HomeMainPage> {
                                 Expanded(child: Container(),),
                                 GestureDetector(
                                   onTap: (){
-                                    value.selectedCategory = category;
+                                    value.sortType = SortType.recent;
+                                    value.getInitalProducts(category);
                                     Navigator.pushNamed(context, '/productsList');
                                   },
                                   child: Column(

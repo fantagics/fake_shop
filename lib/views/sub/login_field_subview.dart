@@ -251,11 +251,11 @@ void loginProcess({
   }
   AuthService service = context.read<AuthService>();
   service.changeLoadState(true);
-  final res = await nm.getUserToken(userName: 'mor_2314', password: '83r5^_');
-  // final res = await nm.getUserToken(
-  //   userName: idControl.text, 
-  //   password: pwControl.text
-  // );
+  // final res = await nm.getUserToken(userName: 'mor_2314', password: '83r5^_');
+  final res = await nm.getUserToken(
+    userName: idControl.text, 
+    password: pwControl.text
+  );
   print(res);
   service.changeLoadState(false);
   if(res[0] == "1"){

@@ -88,7 +88,8 @@ welcomeTitle(){
           )
         ),
         TextSpan(text: "\'을 사용한 가짜 쇼핑 앱입니다. "),
-        TextSpan(text: "(개발 이태형)(mor_2314/83r5^_)",
+        // TextSpan(text: "(개발 이태형)(mor_2314/83r5^_)",
+        TextSpan(text: "(mor_2314/83r5^_)",
           style: GoogleFonts.notoSans(
             color: Colors.grey
           )

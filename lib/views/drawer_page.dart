@@ -46,6 +46,7 @@ drawerCategory({required BuildContext context}){
                       ),
                   ),
                   onTap: (){
+                    service.searchText = '';
                     service.sortType = SortType.recent;
                     service.getInitalProducts('all');
                     Navigator.pushNamed(context, '/productsList');
@@ -64,6 +65,7 @@ drawerCategory({required BuildContext context}){
                       ),
                   ),
                   onTap: (){
+                    service.searchText = '';
                     service.sortType = SortType.recent;
                     service.getInitalProducts(service.categories[index-2]);
                     Navigator.pushNamed(context, '/productsList');

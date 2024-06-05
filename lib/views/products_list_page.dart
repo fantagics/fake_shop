@@ -92,7 +92,12 @@ class _ProductsListPageState extends State<ProductsListPage> {
                     SizedBox(width: 8),
                     Expanded(child: TextField(
                       controller: _textController,
-                      onSubmitted: (v){},
+                      onSubmitted: (v){
+                        value.changeLoadState(true);
+                        value.searchText = v;
+                        value.sortAndFilterProducts();
+                        _controller.jumpTo(0);
+                      },
                       style: GoogleFonts.notoSans(
                         fontSize: 16,
                         color: Colors.black
