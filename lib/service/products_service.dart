@@ -47,9 +47,9 @@ class ProductsService extends ChangeNotifier{
   //   // notifyListeners();
   // }
 
-  void getInitalProducts(String category) async{
+  void getInitalProducts({String? category}) async{
     changeLoadState(true);
-    selectedCategory = category;
+    if(category != null){selectedCategory = category;}
     receivedProducts.clear();
     if(selectedCategory == 'all'){
       receivedProducts = await nm.getAllProducts();

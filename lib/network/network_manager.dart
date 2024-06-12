@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import './network_error.dart';
 import '../model/products.dart';
 import '../service/products_service.dart';
+import '../service/navigation_key.dart';
+import '../views/sub/app_dialoges.dart';
 
 class NetworkManager{
   final domain = 'https://fakestoreapi.com/';
@@ -44,14 +46,14 @@ class NetworkManager{
     try{
       Response resCate = await Dio().get(reqUrl("products/categories"));
       service.categories = List<String>.from(resCate.data);
-    } on DioException catch (e){
-        errorHandler(e);
-    }
-    try{
-      for(String c in service.categories){
-        Response resItems = await Dio().get(reqUrl("products/category/$c?limit=3"));
-        List<Product> cateItem = List<Product>.from(resItems.data.map((p){return Product.fromJson(p);}).toList());
-        service.recommend[c] = cateItem;
+      try{
+        for(String c in service.categories){
+          Response resItems = await Dio().get(reqUrl("products/category/$c?limit=3"));
+          List<Product> cateItem = List<Product>.from(resItems.data.map((p){return Product.fromJson(p);}).toList());
+          service.recommend[c] = cateItem;
+        }
+      } on DioException catch (e){
+          errorHandler(e);
       }
     } on DioException catch (e){
         errorHandler(e);
@@ -84,5 +86,10 @@ class NetworkManager{
     var connectivityResult = await (Connectivity().checkConnectivity());
     String msg = NetworkErrors.getByCode(e.response?.statusCode, connectivityResult).description;
     print(msg);//context.dialog(networkError)
+    final context = NavigationService.shared.navigationState.currentContext;
+    print("context: ${context == null ? 'F' : 'T'}");
+    if(context != null){
+      networkErrorDialog(msg);
+    }
   }
 }

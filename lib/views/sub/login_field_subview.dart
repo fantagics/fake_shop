@@ -262,8 +262,6 @@ void loginProcess({
     service.changeUserToken(res[1], LoginType.email);
     Navigator.of(context).pushNamedAndRemoveUntil("/home", (route) => false);
   } else {
-    justConfirmDialog(context: context,
-      description: res[1]
-    );
+    networkErrorDialog(res[1]);
   }
 }

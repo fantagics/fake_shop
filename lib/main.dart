@@ -13,6 +13,7 @@ import './views/signup_page.dart';
 import './views/home_page.dart';
 import './views/product_info_page.dart';
 import './views/products_list_page.dart';
+import './service/navigation_key.dart';
 
 void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +46,7 @@ class _MyAppState extends State<MyApp> {
     AuthService service = context.read<AuthService>();
     return MaterialApp(
 				debugShowCheckedModeBanner: false,
+        navigatorKey: NavigationService.shared.navigationState,
         initialRoute: service.userToken == null ? '/login' : '/home',
         routes: {
           // '/': (context) => const InitialPage(),

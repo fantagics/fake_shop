@@ -87,7 +87,7 @@ class _CategoryPickerBottomSheetState extends State<CategoryPickerBottomSheet> {
                   String selected = _controller.selectedItem == 0 ? 'all' : service.categories[_controller.selectedItem - 1];
                   service.sortType = SortType.recent;
                   Navigator.pop(context);
-                  service.getInitalProducts(selected);
+                  service.getInitalProducts(category: selected);
                   widget.controller.jumpTo(0);
                 },
                 child: Container(

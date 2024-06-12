@@ -152,88 +152,91 @@ class _ProductsListPageState extends State<ProductsListPage> {
           ),
           body: Stack(
             children: [
-              Padding(
-                padding: EdgeInsets.all(cellAxisSpace),
-                // height: ((cellHeight + cellAxisSpace) * ((value.showProducts.length + 1) / 2)) + 60,
-                child: GridView.builder(
-                  controller: _controller,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisSpacing: cellAxisSpace,
-                    crossAxisSpacing: cellAxisSpace,
-                    crossAxisCount: 2,
-                    childAspectRatio: cellWidth / cellHeight,
-                  ), 
-                  itemCount: value.showProducts.length,
-                  itemBuilder: (context, index) {
-                    Product product = value.showProducts[index];
-                    return Padding(
-                      padding: EdgeInsets.all(1),
-                      child: GestureDetector(
-                        onTap: (){
-                          Navigator.pushNamed(context, '/product',
-                            arguments: ProductInfoArguments(product)
-                          );
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.7),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: Offset(0, 0)
-                              )
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: cellWidth - 8 - 2, height: cellWidth - 8 - 2,
-                                child: Image.network(product.image, fit: BoxFit.contain,),
-                              ),
-                      
-                              SizedBox(height: 4),
-                              Text(product.title,
-                                style: GoogleFonts.notoSans(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black
+              RefreshIndicator(
+                onRefresh: () => refreshAction(value, _controller),
+                child: Padding(
+                  padding: EdgeInsets.all(cellAxisSpace),
+                  // height: ((cellHeight + cellAxisSpace) * ((value.showProducts.length + 1) / 2)) + 60,
+                  child: GridView.builder(
+                    controller: _controller,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: cellAxisSpace,
+                      crossAxisSpacing: cellAxisSpace,
+                      crossAxisCount: 2,
+                      childAspectRatio: cellWidth / cellHeight,
+                    ), 
+                    itemCount: value.showProducts.length,
+                    itemBuilder: (context, index) {
+                      Product product = value.showProducts[index];
+                      return Padding(
+                        padding: EdgeInsets.all(1),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamed(context, '/product',
+                              arguments: ProductInfoArguments(product)
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.7),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(0, 0)
+                                )
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: cellWidth - 8 - 2, height: cellWidth - 8 - 2,
+                                  child: Image.network(product.image, fit: BoxFit.contain,),
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(child: Container()),
-                                  Text("⭐️ ${product.rating.rate} / 🛒 ${product.rating.count}",
-                                    style: GoogleFonts.notoSans(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
-                                    ),
+                        
+                                SizedBox(height: 4),
+                                Text(product.title,
+                                  style: GoogleFonts.notoSans(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black
                                   ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(child: Container()),
-                                  Text("\$ ${product.price}",
-                                    style: GoogleFonts.notoSans(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(child: Container()),
+                                    Text("⭐️ ${product.rating.rate} / 🛒 ${product.rating.count}",
+                                      style: GoogleFonts.notoSans(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(child: Container()),
+                                    Text("\$ ${product.price}",
+                                      style: GoogleFonts.notoSans(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
               value.isLoading ? CircleProgerssIndicator(): Container(),
@@ -278,4 +281,10 @@ circleAppBarButton({required Widget child}){
     ),
     child: child,
   );
+}
+
+Future<void> refreshAction(ProductsService service, ScrollController controller) async{
+  service.changeLoadState(true);
+  service.getInitalProducts();
+  controller.jumpTo(0);
 }
