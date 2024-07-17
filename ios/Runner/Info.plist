@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>KAKAO_API</key>
-    <string>${KAKAO_API}</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -31,7 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao${KAKAO_API}</string>
+				<string>kakao8d65206dea12ec23df8eec12c96e3a69</string>
 			</array>
 		</dict>
 	</array>
@@ -41,7 +39,6 @@
 	<array>
 		<string>https</string>
 		<string>kakaokompassauth</string>
-		<string>kakaolink</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

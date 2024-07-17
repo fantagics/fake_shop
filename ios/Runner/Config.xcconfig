@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  Runner
+//
+//  Created by 이태형 on 2024/05/06.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+KAKAO_API = "8d65206dea12ec23df8eec12c96e3a69"
